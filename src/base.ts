@@ -34,8 +34,17 @@ export const generateNumberPattern: GenerateFunction<NumberPattern> = (
     const min: number = pattern.minimum ?? 0;
     const max: number = pattern.maximum ?? 2048;
 
-    const result: number = randomIntegerBetween(min, max);
-    return result;
+    const integerValue: number = randomIntegerBetween(min, max);
+    if (pattern.integer) {
+        return integerValue;
+    }
+
+    if (pattern.float) {
+        const floatValue: number = Math.random();
+        return integerValue + floatValue;
+    }
+
+    return integerValue;
 };
 
 export const generateBigIntPattern: GenerateFunction<BigIntPattern> = (

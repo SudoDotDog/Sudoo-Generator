@@ -6,4 +6,6 @@
 
 export * from "./base";
 export * from "./declare";
+export * from "./generate";
+export * from "./generator";
 

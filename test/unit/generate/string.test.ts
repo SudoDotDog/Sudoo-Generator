@@ -1,6 +1,6 @@
 /**
  * @author WMXPY
- * @namespace Generator
+ * @namespace Generator_Generate
  * @description String
  * @override Unit
  */

@@ -5,7 +5,7 @@
  * @description Base
  */
 
-import { NumberPattern, StringPattern, BigIntPattern } from "@sudoo/pattern";
+import { BigIntPattern, BooleanPattern, NumberPattern, StringPattern } from "@sudoo/pattern";
 import { randomIntegerBetween, randomString } from "@sudoo/random";
 import { GenerateFunction, GenerateOption, StackElement } from "./declare";
 
@@ -56,4 +56,26 @@ export const generateBigIntPattern: GenerateFunction<BigIntPattern> = (
     const result: bigint = BigInt(randomIntegerBetween(min, max));
 
     return result;
+};
+
+export const generateBooleanPattern: GenerateFunction<BooleanPattern> = (
+    pattern: BooleanPattern,
+    option: GenerateOption,
+    stack: StackElement[],
+): boolean => {
+
+    if (pattern.ensureFalse) {
+        return false;
+    }
+    if (pattern.ensureTrue) {
+        return true;
+    }
+
+    const randomNumber: number = Math.random();
+
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+    if (randomNumber > 0.5) {
+        return true;
+    }
+    return false;
 };

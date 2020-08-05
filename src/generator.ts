@@ -4,8 +4,8 @@
  * @description Generator
  */
 
-import { ListPattern, Pattern } from "@sudoo/pattern";
-import { randomIntegerBetween, randomString } from "@sudoo/random";
+import { ListPattern, Pattern, ExactListPattern } from "@sudoo/pattern";
+import { randomIntegerBetween } from "@sudoo/random";
 import { generateAnyPattern, generateBigIntPattern, generateBooleanPattern, generateCustomPattern, generateDatePattern, generateEmptyPattern, generateExactPattern, generateFunctionPattern, generateNumberPattern, generateStringPattern } from "./base";
 import { GenerateFunction, GenerateOption, StackElement } from "./declare";
 
@@ -20,7 +20,7 @@ export const getGenerateFunction = (pattern: Pattern): GenerateFunction => {
         case 'date': return generateDatePattern;
         case 'function': return generateFunctionPattern;
         case 'list': return generateListPattern;
-        case 'exact-list': return generateExactList;
+        case 'exact-list': return generateExactListPattern;
         case 'map': return generateMapPattern;
         case 'record': return generateRecordPattern;
         case 'custom': return generateCustomPattern;
@@ -59,11 +59,26 @@ export const generateListPattern: GenerateFunction<ListPattern> = (
     const length: number = randomIntegerBetween(min, max);
     const elements: any[] = new Array(length).fill(undefined);
 
-    return elements.map(() => {
+    return elements.map((_, index: number) => {
 
-        const element: any = 
+        const newStack: StackElement[] = [...stack, index];
+
+        const element: any = generatePattern(pattern.element, option, newStack);
+        return element;
     });
+};
 
-    const result: string = randomString(length);
-    return result;
+export const generateExactListPattern: GenerateFunction<ExactListPattern> = (
+    pattern: ExactListPattern,
+    option: GenerateOption,
+    stack: StackElement[],
+): any[] => {
+
+    return pattern.list.map((each: Pattern, index: number) => {
+
+        const newStack: StackElement[] = [...stack, index];
+
+        const element: any = generatePattern(each, option, newStack);
+        return element;
+    });
 };

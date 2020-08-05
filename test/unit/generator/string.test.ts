@@ -24,6 +24,8 @@ describe('Given a [Generator-String] Helper Method', (): void => {
 
         const result: string = generateStringPattern(pattern, createDefaultGenerateOption(), []);
 
-        expect(typeof result).to.be.equal('string')
+        expect(typeof result).to.be.equal('string');
+        expect(result.length).to.be.greaterThan(0);
+        expect(result.length).to.be.lessThan(16);
     });
 });

@@ -13,6 +13,7 @@ import { createDefaultGenerateOption } from '../../mock/generator';
 
 describe('Given a [Generator-String] Helper Method', (): void => {
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const chance: Chance.Chance = new Chance('generate-generate-string');
 
     it('should be able to generator', (): void => {

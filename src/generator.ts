@@ -4,7 +4,7 @@
  * @description Generator
  */
 
-import { ListPattern, Pattern, ExactListPattern } from "@sudoo/pattern";
+import { ExactListPattern, ListPattern, MapPattern, Pattern, RecordPattern } from "@sudoo/pattern";
 import { randomIntegerBetween } from "@sudoo/random";
 import { generateAnyPattern, generateBigIntPattern, generateBooleanPattern, generateCustomPattern, generateDatePattern, generateEmptyPattern, generateExactPattern, generateFunctionPattern, generateNumberPattern, generateStringPattern } from "./base";
 import { GenerateFunction, GenerateOption, StackElement } from "./declare";
@@ -81,4 +81,53 @@ export const generateExactListPattern: GenerateFunction<ExactListPattern> = (
         const element: any = generatePattern(each, option, newStack);
         return element;
     });
+};
+
+export const generateMapPattern: GenerateFunction<MapPattern> = (
+    pattern: MapPattern,
+    option: GenerateOption,
+    stack: StackElement[],
+): Record<string, any> => {
+
+    const keys: string[] = Object.keys(pattern.map);
+
+    return keys.reduce((previous: Record<string, any>, current: string) => {
+
+        const currentPattern: Pattern = pattern.map[current];
+
+        const newStack: StackElement[] = [...stack, `${current}(key)`];
+        const element: any = generatePattern(currentPattern, option, newStack);
+
+        return {
+            ...previous,
+            [current]: element,
+        };
+    }, {} as Record<string, any>);
+};
+
+export const generateRecordPattern: GenerateFunction<RecordPattern> = (
+    pattern: RecordPattern,
+    option: GenerateOption,
+    stack: StackElement[],
+): Record<string, any> => {
+
+    const length: number = randomIntegerBetween(0, 16);
+    const keys: any[] = new Array(length).fill(undefined).map((_, index: number) => {
+
+        const newStack: StackElement[] = [...stack, `${index}(key-generation)`];
+
+        const key: any = generatePattern(pattern.key, option, newStack);
+        return key;
+    });
+
+    return keys.reduce((previous: Record<string, any>, current: string) => {
+
+        const newStack: StackElement[] = [...stack, `${current}(key)`];
+        const element: any = generatePattern(pattern.value, option, newStack);
+
+        return {
+            ...previous,
+            [current]: element,
+        };
+    }, {} as Record<string, any>);
 };

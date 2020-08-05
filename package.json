@@ -37,5 +37,8 @@
     ],
     "report-dir": "coverage",
     "sourceMap": true
+  },
+  "dependencies": {
+    "@sudoo/random": "^2.1.1"
   }
 }

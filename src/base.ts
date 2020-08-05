@@ -5,7 +5,7 @@
  * @description Base
  */
 
-import { BigIntPattern, BooleanPattern, NumberPattern, StringPattern } from "@sudoo/pattern";
+import { BigIntPattern, BooleanPattern, NumberPattern, StringPattern, DatePattern, FunctionPattern } from "@sudoo/pattern";
 import { randomIntegerBetween, randomString } from "@sudoo/random";
 import { GenerateFunction, GenerateOption, StackElement } from "./declare";
 
@@ -22,7 +22,6 @@ export const generateStringPattern: GenerateFunction<StringPattern> = (
 
     const length: number = randomIntegerBetween(min, max);
     const result: string = randomString(length);
-
     return result;
 };
 
@@ -36,7 +35,6 @@ export const generateNumberPattern: GenerateFunction<NumberPattern> = (
     const max: number = pattern.maximum ?? 2048;
 
     const result: number = randomIntegerBetween(min, max);
-
     return result;
 };
 
@@ -54,7 +52,6 @@ export const generateBigIntPattern: GenerateFunction<BigIntPattern> = (
         : 2048;
 
     const result: bigint = BigInt(randomIntegerBetween(min, max));
-
     return result;
 };
 
@@ -78,4 +75,27 @@ export const generateBooleanPattern: GenerateFunction<BooleanPattern> = (
         return true;
     }
     return false;
+};
+
+export const generateDatePattern: GenerateFunction<DatePattern> = (
+    pattern: DatePattern,
+    option: GenerateOption,
+    stack: StackElement[],
+): Date | string => {
+
+    if (pattern.allowString) {
+        return new Date().toISOString();
+    }
+    return new Date();
+};
+
+export const generateFunctionPattern: GenerateFunction<FunctionPattern> = (
+    pattern: FunctionPattern,
+    option: GenerateOption,
+    stack: StackElement[],
+): (() => any) => {
+
+    return () => {
+        return randomString();
+    };
 };

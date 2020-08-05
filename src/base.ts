@@ -5,7 +5,7 @@
  * @description Base
  */
 
-import { BigIntPattern, BooleanPattern, NumberPattern, StringPattern, DatePattern, FunctionPattern } from "@sudoo/pattern";
+import { AnyPattern, BigIntPattern, BooleanPattern, CustomPattern, DatePattern, EmptyPattern, ExactPattern, FunctionPattern, NumberPattern, StringPattern } from "@sudoo/pattern";
 import { randomIntegerBetween, randomString } from "@sudoo/random";
 import { GenerateFunction, GenerateOption, StackElement } from "./declare";
 
@@ -93,9 +93,60 @@ export const generateFunctionPattern: GenerateFunction<FunctionPattern> = (
     pattern: FunctionPattern,
     option: GenerateOption,
     stack: StackElement[],
-): (() => any) => {
+): ((...args: any[]) => any) => {
 
     return () => {
         return randomString();
     };
+};
+
+export const generateCustomPattern: GenerateFunction<CustomPattern> = (
+    pattern: CustomPattern,
+    option: GenerateOption,
+    stack: StackElement[],
+): any => {
+
+    if (pattern.generate) {
+        return pattern.generate();
+    }
+    return randomString();
+};
+
+export const generateExactPattern: GenerateFunction<ExactPattern> = (
+    pattern: ExactPattern,
+    option: GenerateOption,
+    stack: StackElement[],
+): any => {
+
+    return pattern.value;
+};
+
+export const generateEmptyPattern: GenerateFunction<EmptyPattern> = (
+    pattern: EmptyPattern,
+    option: GenerateOption,
+    stack: StackElement[],
+): any => {
+
+    if (pattern.allowNull) {
+        return null;
+    }
+    if (pattern.allowUndefined) {
+        return undefined;
+    }
+    return undefined;
+};
+
+export const generateAnyPattern: GenerateFunction<AnyPattern> = (
+    pattern: AnyPattern,
+    option: GenerateOption,
+    stack: StackElement[],
+): any => {
+
+    if (pattern.banishNull) {
+        return randomString();
+    }
+    if (pattern.banishUndefined) {
+        return randomString();
+    }
+    return randomString();
 };

@@ -8,7 +8,7 @@
 import { CustomPattern } from '@sudoo/pattern';
 import { expect } from 'chai';
 import * as Chance from 'chance';
-import { generateCustomPattern } from '../../../src';
+import { generatePattern } from '../../../src';
 import { createDefaultGenerateOption } from '../../mock/generator';
 
 describe('Given a [Generator-Custom] Helper Method', (): void => {
@@ -23,7 +23,7 @@ describe('Given a [Generator-Custom] Helper Method', (): void => {
             generate: () => chance.integer(),
         };
 
-        const result: string = generateCustomPattern(pattern, createDefaultGenerateOption(), []);
+        const result: string = generatePattern(pattern, createDefaultGenerateOption(), []);
 
         expect(typeof result).to.be.equal('number');
     });

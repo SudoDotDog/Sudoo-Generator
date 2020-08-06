@@ -40,6 +40,10 @@ export const generatePattern = (
     stack: StackElement[],
 ): any => {
 
+    if (typeof pattern.generate === 'function') {
+        return pattern.generate();
+    }
+
     const generateFunction: GenerateFunction = getGenerateFunction(pattern);
 
     const result: any = generateFunction(pattern, option, stack);

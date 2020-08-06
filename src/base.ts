@@ -115,9 +115,6 @@ export const generateCustomPattern: GenerateFunction<CustomPattern> = (
     stack: StackElement[],
 ): any => {
 
-    if (pattern.generate) {
-        return pattern.generate();
-    }
     return randomString();
 };
 

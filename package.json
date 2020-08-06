@@ -1,6 +1,6 @@
 {
   "name": "@sudoo/generator",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": ":smirk_cat: Fake data generator",
   "repository": {
     "type": "git",
@@ -17,6 +17,9 @@
   "homepage": "https://github.com/SudoDotDog/Sudoo-Generator#readme",
   "peerDependencies": {
     "@sudoo/pattern": "*"
+  },
+  "dependencies": {
+    "@sudoo/random": "^2.1.1"
   },
   "devDependencies": {
     "@sudoo/io": "^1.8.0",
@@ -37,8 +40,5 @@
     ],
     "report-dir": "coverage",
     "sourceMap": true
-  },
-  "dependencies": {
-    "@sudoo/random": "^2.1.1"
   }
 }

@@ -5,10 +5,10 @@
  * @override Unit
  */
 
-import { ExactListPattern } from '@sudoo/pattern';
+import { TuplePattern } from '@sudoo/pattern';
 import { expect } from 'chai';
 import * as Chance from 'chance';
-import { generateExactListPattern } from '../../../src';
+import { generateTuplePattern } from '../../../src';
 import { createDefaultGenerateOption } from '../../mock/generator';
 
 describe('Given a [Generator-Exact-List] Helper Method', (): void => {
@@ -18,8 +18,8 @@ describe('Given a [Generator-Exact-List] Helper Method', (): void => {
 
     it('should be able to generate exact list pattern', (): void => {
 
-        const pattern: ExactListPattern = {
-            type: 'exact-list',
+        const pattern: TuplePattern = {
+            type: 'tuple',
             list: [{
                 type: 'string',
             }, {
@@ -27,7 +27,7 @@ describe('Given a [Generator-Exact-List] Helper Method', (): void => {
             }],
         };
 
-        const result: string = generateExactListPattern(pattern, createDefaultGenerateOption(), []);
+        const result: string = generateTuplePattern(pattern, createDefaultGenerateOption(), []);
 
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         expect(Array.isArray(result)).to.be.true;

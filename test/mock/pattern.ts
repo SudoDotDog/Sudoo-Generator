@@ -24,10 +24,10 @@ export const createMockListPattern = (): Pattern => {
     };
 };
 
-export const createMockExactListPattern = (): Pattern => {
+export const createMockTuplePattern = (): Pattern => {
 
     return {
-        type: 'exact-list',
+        type: 'tuple',
         list: [{
             type: 'string',
         }, {

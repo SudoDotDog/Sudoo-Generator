@@ -4,7 +4,7 @@
  * @description Generate
  */
 
-import { AndPattern, ExactListPattern, ListPattern, MapPattern, OrPattern, Pattern, RecordPattern } from "@sudoo/pattern";
+import { AndPattern, ListPattern, MapPattern, OrPattern, Pattern, RecordPattern, TuplePattern } from "@sudoo/pattern";
 import { randomIntegerBelow, randomIntegerBetween } from "@sudoo/random";
 import { generateAnyPattern, generateBigIntPattern, generateBooleanPattern, generateCustomPattern, generateDatePattern, generateEmptyPattern, generateExactPattern, generateFunctionPattern, generateNumberPattern, generateStringPattern } from "./base";
 import { GenerateFunction, GenerateOption, StackElement } from "./declare";
@@ -20,7 +20,7 @@ export const getGenerateFunction = (pattern: Pattern): GenerateFunction => {
         case 'date': return generateDatePattern;
         case 'function': return generateFunctionPattern;
         case 'list': return generateListPattern;
-        case 'exact-list': return generateExactListPattern;
+        case 'tuple': return generateTuplePattern;
         case 'map': return generateMapPattern;
         case 'record': return generateRecordPattern;
         case 'custom': return generateCustomPattern;
@@ -72,8 +72,8 @@ export const generateListPattern: GenerateFunction<ListPattern> = (
     });
 };
 
-export const generateExactListPattern: GenerateFunction<ExactListPattern> = (
-    pattern: ExactListPattern,
+export const generateTuplePattern: GenerateFunction<TuplePattern> = (
+    pattern: TuplePattern,
     option: GenerateOption,
     stack: StackElement[],
 ): any[] => {

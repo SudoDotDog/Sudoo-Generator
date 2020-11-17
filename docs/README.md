@@ -16,3 +16,14 @@ yarn add @sudoo/pattern # Peer Dependencies
 npm install @sudoo/generator --save
 npm install @sudoo/pattern --save # Peer Dependencies
 ```
+
+## Usage
+
+```ts
+import { Generator } from "@sudoo/generator";
+import { createStringPattern } from "@sudoo/pattern";
+
+const generator: Generator = Generator.create(createStringPattern());
+
+const result: string = generator.generate(); // Random Generated String
+```
